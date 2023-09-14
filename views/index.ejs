@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My ToDo List</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Custom CSS for a beautiful and attractive UI */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #dateBar
+        {
+            position: absolute;
+            top: 0%;
+            background-color: #3274e7;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .add-task-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%; /* Rounded shape */
+            padding: 10px;
+            width: 42px; /* Adjust width and height for the circle */
+            height: 42px;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .add-task-button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        li input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .task-text {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id = "dateBar">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+    <div class="container">
+        <h1>My ToDo List</h1>
+        <form action="/" method="post">
+            <input type="text" name="newItem" placeholder="Enter your task">
+            <button class="add-task-button" name="list" value=<%=listTitle %> type="submit">+</button> <!-- Circular button -->
+        </form>
+        <ul>
+            <% newListItems.forEach(item => { %>
+
+                <form action="/delete" method="post">
+                    <li>
+                        <input type="checkbox" name="checkbox" onChange="this.form.submit()" value="<%= item._id %>">
+                        <span class="task-text"><%= item.name %></span>
+                    </li>
+                    <input type="hidden" name="listName" value="<%=listTitle%>"/>
+                </form>
+                
+           <% }); %>
+                
+            
+        </ul>
+    </div>
+</body>
+</html>
